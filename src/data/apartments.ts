@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset'
 export interface Apartment {
   id: string;
   name: string;
@@ -29,11 +30,11 @@ export const apartments: Apartment[] = [
     name: 'Modern Apartment',
     price: 55,
     images: [
-  '/images/modern-apartment/living-room.jpg',
-  '/images/modern-apartment/kitchen.jpg',
-  '/images/modern-apartment/bedroom.jpg',
-  '/images/modern-apartment/bedroom2.jpg',
-  '/images/modern-apartment/dining.jpg'
+  asset('images/modern-apartment/living-room.jpg'),
+  asset('images/modern-apartment/kitchen.jpg'),
+  asset('images/modern-apartment/bedroom.jpg'),
+  asset('images/modern-apartment/bedroom2.jpg'),
+  asset('images/modern-apartment/dining.jpg'),
 ],
     bedrooms: 2,
     bathrooms: 2,
@@ -65,11 +66,11 @@ export const apartments: Apartment[] = [
     name: 'Luxury Suite',
     price: 65,
     images: [
-  '/images/luxury-suite/living.jpg',
-  '/images/luxury-suite/kitchen.jpg',
-  '/images/luxury-suite/bedroom.jpg',
-  '/images/luxury-suite/patio.jpg',
-  '/images/luxury-suite/dining.jpg'
+  asset('images/luxury-suite/living.jpg'),
+  asset('images/luxury-suite/kitchen.jpg'),
+  asset('images/luxury-suite/bedroom.jpg'),
+  asset('images/luxury-suite/patio.jpg'),
+  asset('images/luxury-suite/dining.jpg'),
 ],
     bedrooms: 2,
     bathrooms: 2,

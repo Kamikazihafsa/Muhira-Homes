@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Home, Moon, Sun } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 
 const Header: React.FC = () => {
@@ -8,39 +8,35 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { isDarkMode, toggleDarkMode } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen((v) => !v);
 
   const scrollToSection = (sectionId: string) => {
+    // If we are NOT on home, route to home and ask it to scroll
     if (location.pathname !== '/') {
-      window.location.href = `/#${sectionId}`;
+      navigate('/', { state: { scrollTo: sectionId } });
+      setIsMenuOpen(false);
       return;
     }
-    
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Already on home: smooth scroll
+    const el = document.getElementById(sectionId);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg' 
-        : 'bg-transparent'
-    }`}>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
+      }`}
+    >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-3 hover-scale-sm transition-transform duration-200">
@@ -48,14 +44,18 @@ const Header: React.FC = () => {
               <Home className="text-white" size={20} />
             </div>
             <div>
-              <h1 className={`text-2xl font-bold transition-colors duration-300 ${
-                isScrolled ? 'text-gray-900 dark:text-white' : 'text-white'
-              }`}>
+              <h1
+                className={`text-2xl font-bold transition-colors duration-300 ${
+                  isScrolled ? 'text-gray-900 dark:text-white' : 'text-white'
+                }`}
+              >
                 Muhira Homes
               </h1>
-              <p className={`text-sm transition-colors duration-300 ${
-                isScrolled ? 'text-gray-600 dark:text-gray-300' : 'text-gray-200'
-              }`}>
+              <p
+                className={`text-sm transition-colors duration-300 ${
+                  isScrolled ? 'text-gray-600 dark:text-gray-300' : 'text-gray-200'
+                }`}
+              >
                 Stylish rooms at transparent prices
               </p>
             </div>
@@ -100,8 +100,8 @@ const Header: React.FC = () => {
             <button
               onClick={toggleDarkMode}
               className={`p-2 rounded-lg transition-all duration-300 hover-scale ${
-                isScrolled 
-                  ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800' 
+                isScrolled
+                  ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                   : 'text-white hover:bg-white/10'
               }`}
             >
@@ -111,8 +111,8 @@ const Header: React.FC = () => {
             <button
               onClick={toggleMenu}
               className={`md:hidden p-2 rounded-lg transition-all duration-300 hover-scale ${
-                isScrolled 
-                  ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800' 
+                isScrolled
+                  ? 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                   : 'text-white hover:bg-white/10'
               }`}
             >
