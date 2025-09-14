@@ -1,0 +1,17 @@
+# This file ensures the images directory is tracked by git
+# You can delete this file once you add your own images
+
+# Recommended folder structure:
+# /public/images/
+#   ├── modern-apartment/
+#   │   ├── living-room.jpg
+#   │   ├── kitchen.jpg
+#   │   ├── bedroom.jpg
+#   │   ├── bathroom.jpg
+#   │   └── exterior.jpg
+#   └── luxury-suite/
+#       ├── living-room.jpg
+#       ├── kitchen.jpg
+#       ├── bedroom.jpg
+#       ├── bathroom.jpg
+#       └── exterior.jpg
